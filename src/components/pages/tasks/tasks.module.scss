@@ -2,6 +2,7 @@
 @import "src/components/styles/variables.scss";
 
 .potsContainer {
+  color: $card-text-color;
   padding: 2rem 4rem;
   margin-top: 6rem;
   @media screen and (max-width: $mobile-layout-width) {

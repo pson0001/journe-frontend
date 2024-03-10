@@ -3,7 +3,7 @@
   span {
     display: inline-block;
     font-weight: 400;
-    border-bottom: 1px solid $text-color;
+    border-bottom: 1px solid $card-text-color;
     min-width: 4ch;
     min-height: 25px;
   }
@@ -21,7 +21,7 @@
     white-space: pre-wrap;
     overflow: auto;
     &:focus-visible {
-      border-bottom: 1px solid $text-color;
+      border-bottom: 1px solid $card-text-color;
       outline: none;
     }
   }
