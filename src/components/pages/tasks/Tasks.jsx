@@ -6,12 +6,20 @@ import c from "./tasks.module.scss";
 import { Data } from "../../providers/DataProvider";
 import TaskCard from "./task-card/TaskCard";
 const Tasks = () => {
-  const { tasks, pots } = useContext(Data);
+  const { tasks, pots, createObject } = useContext(Data);
 
-  const [addPot, setAddPot] = useState(false);
+  //Handle pots
+  const [newPot, setNewPot] = useState({
+    pot_description: "",
+    pot_id: "",
+    pot_title: "",
+  });
 
   const addPotHandler = () => {
-    setAddPot(true);
+    createObject("pot", {
+      ...newPot,
+      pot_id: uuidv4(),
+    });
   };
 
   return (
@@ -25,10 +33,6 @@ const Tasks = () => {
               {pots?.map((pot) => {
                 return <TaskCard pot={pot} tasks={tasks} key={pot.pot_id} />;
               })}
-
-              {addPot && (
-                <TaskCard pot={newPot} tasks={[]} key={newPot.pot_id} />
-              )}
             </Masonry>
           </ResponsiveMasonry>
         )}

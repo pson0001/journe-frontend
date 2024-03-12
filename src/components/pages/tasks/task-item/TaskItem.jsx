@@ -17,7 +17,7 @@ const TaskItem = ({ task, potId, handleFinishInput }) => {
     task_duration: task.task_duration,
     task_id: task.task_id,
     task_title: task.task_title,
-    task_is_complete: stringToBoolean(task?.task_is_complete),
+    task_is_complete: stringToBoolean(task?.task_is_complete) || false,
     task_pot_id: potId,
   });
 
@@ -47,6 +47,8 @@ const TaskItem = ({ task, potId, handleFinishInput }) => {
       task_title: newText,
     }));
 
+    console.log("id", currentTask.task_id, newText);
+
     if (currentTask.task_id) {
       updateObject("task", currentTask.task_id, {
         ...currentTask,
@@ -58,7 +60,6 @@ const TaskItem = ({ task, potId, handleFinishInput }) => {
         task_pot_id: potId,
         task_id: tempId,
       });
-      handleFinishInput();
     }
   };
 
@@ -67,10 +68,20 @@ const TaskItem = ({ task, potId, handleFinishInput }) => {
       ...task,
       task_duration: duration,
     }));
-    updateObject("task", currentTask.task_id, {
-      ...currentTask,
-      task_duration: duration,
-    });
+
+    if (currentTask.task_id) {
+      updateObject("task", currentTask.task_id, {
+        ...currentTask,
+        task_duration: duration,
+      });
+    } else {
+      createObject("task", {
+        ...currentTask,
+        task_duration: duration,
+        task_pot_id: potId,
+        task_id: tempId,
+      });
+    }
   };
 
   const handleDateChange = (date) => {
@@ -78,10 +89,20 @@ const TaskItem = ({ task, potId, handleFinishInput }) => {
       ...task,
       task_start_time: date,
     }));
-    updateObject("task", currentTask.task_id, {
-      ...currentTask,
-      task_start_time: format(new Date(date), "yyyy-MM-dd HH:mm:ss"),
-    });
+
+    if (currentTask.task_id) {
+      updateObject("task", currentTask.task_id, {
+        ...currentTask,
+        task_start_time: format(new Date(date), "yyyy-MM-dd HH:mm:ss"),
+      });
+    } else {
+      createObject("task", {
+        ...currentTask,
+        task_start_time: format(new Date(date), "yyyy-MM-dd HH:mm:ss"),
+        task_pot_id: potId,
+        task_id: tempId,
+      });
+    }
   };
 
   const datePickerStyle = {
