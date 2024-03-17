@@ -6,7 +6,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { Data } from "../../providers/DataProvider";
 import { createPortal } from "react-dom";
-import TaskItem from "../tasks/task-item/TaskItem";
+import TaskItem from "../tasks-container/task-item/TaskItem";
 import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
 
@@ -31,7 +31,10 @@ function Schedule() {
     setOpenModal(true);
     setClickedEventId(event.id);
   };
-  const [newTaskPotId, setNewTaskPotId] = useState(pots && pots[0]?.pot_id);
+
+  const [newTaskPotId, setNewTaskPotId] = useState(
+    "00000000-0000-0000-0000-000000000000"
+  );
 
   // Create new task object
   const [newTask, setNewTask] = useState({
@@ -40,14 +43,27 @@ function Schedule() {
     task_duration: 10,
     task_id: "",
     task_title: "",
-    task_is_complete: "false",
+    task_is_complete: "False",
     task_pot_id: newTaskPotId,
   });
+
+  useEffect(() => {
+    tasks?.map((task) => {
+      if (task.task_id === newTask?.task_id) {
+        setNewTask({ ...task });
+      }
+    });
+  }, [tasks]);
+
+  useEffect(() => {
+    setNewTask({ ...newTask, task_pot_id: newTaskPotId });
+  }, [newTaskPotId]);
 
   const [isNewTask, setIsNewTask] = useState(false);
 
   const createEmptyTaskHandler = (info) => {
     const tempId = uuidv4();
+
     setNewTask({
       ...newTask,
       task_id: tempId,
@@ -59,11 +75,11 @@ function Schedule() {
       task_start_time: dayjs(new Date(info.dateStr)),
     });
   };
+
   const addNewTask = (info) => {
     setOpenModal(true);
     setIsNewTask(true);
     createEmptyTaskHandler(info);
-
     // setNewTask({ ...newTask, task_start_time: dayjs(new Date(info.dateStr)) });
   };
 
@@ -73,7 +89,6 @@ function Schedule() {
       initialView: "timeGridWeek",
       headerToolbar: {
         left: "title",
-
         right: "today prev,next timeGridWeek,timeGridDay",
       },
       editable: true,
@@ -111,7 +126,6 @@ function Schedule() {
                     id="pots"
                     value={newTaskPotId}
                     onChange={(e) => {
-                      handlePotChange(e);
                       setNewTaskPotId(e.target.value);
                     }}
                   >
@@ -130,11 +144,24 @@ function Schedule() {
               ) : (
                 tasks?.map((task) => {
                   if (task.task_id === clickedEventId) {
-                    return <TaskItem task={task} potId={task.task_pot_id} />;
+                    return (
+                      <TaskItem
+                        task={task}
+                        potId={task?.task_pot_id}
+                        key={task?.task_id}
+                      />
+                    );
                   }
                 })
               )}
-              <button onClick={() => setOpenModal(!openModal)}>Close</button>
+              <button
+                onClick={() => {
+                  setOpenModal(!openModal);
+                  setIsNewTask(false);
+                }}
+              >
+                Close
+              </button>
             </div>
           </div>,
           document.getElementById("root")

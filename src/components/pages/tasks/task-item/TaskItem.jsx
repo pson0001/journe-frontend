@@ -17,7 +17,7 @@ const TaskItem = ({ task, potId, handleFinishInput }) => {
     task_duration: task.task_duration,
     task_id: task.task_id,
     task_title: task.task_title,
-    task_is_complete: stringToBoolean(task?.task_is_complete) || false,
+    task_is_complete: task?.task_is_complete,
     task_pot_id: potId,
   });
 
@@ -46,8 +46,6 @@ const TaskItem = ({ task, potId, handleFinishInput }) => {
       ...task,
       task_title: newText,
     }));
-
-    console.log("id", currentTask.task_id, newText);
 
     if (currentTask.task_id) {
       updateObject("task", currentTask.task_id, {
@@ -126,7 +124,11 @@ const TaskItem = ({ task, potId, handleFinishInput }) => {
   const handleDeleteTask = () => {
     deleteObject("task", task.task_id);
   };
-
+  console.log(
+    currentTask?.task_is_complete,
+    task?.task_is_complete,
+    format(new Date(), "yyyy-MM-dd HH:mm:ss")
+  );
   return (
     <div
       className={[

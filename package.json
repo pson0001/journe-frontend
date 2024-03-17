@@ -20,6 +20,7 @@
     "@fullcalendar/timegrid": "^6.1.11",
     "@mui/x-date-pickers": "^6.19.4",
     "antd": "^5.14.1",
+    "classnames": "^2.5.1",
     "cors": "^2.8.5",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.10",

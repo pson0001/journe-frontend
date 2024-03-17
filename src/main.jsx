@@ -5,9 +5,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import ErrorPage from "./components/pages/error/errorPage.jsx";
 import Schedule from "./components/pages/schedule/ScheduleFullCalendar.jsx";
-import Tasks from "./components/pages/tasks/Tasks.jsx";
+// import Tasks from "./components/pages/tasks/Tasks.jsx";
 import Home from "./components/pages/home/Home.jsx";
 import Reset from "./components/pages/reset/Reset.jsx";
+import TasksContainer from "./components/pages/tasks-container/TasksContainer.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,7 +26,8 @@ const router = createBrowserRouter([
       },
       {
         path: "tasks",
-        element: <Tasks />,
+        // element: <Tasks />,
+        element: <TasksContainer />,
       },
       {
         path: "reset",

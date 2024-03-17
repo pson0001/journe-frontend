@@ -64,11 +64,11 @@ const TaskCard = ({ pot, tasks }) => {
         </div>
       </div>
       <TaskList tasks={tasks} pot={pot} />
-      <div className={c.addNewTask}>
-        <button onClick={createEmptyTaskHandler}>
+      <button onClick={createEmptyTaskHandler}>
+        <div className={c.addNewTask}>
           <Icon.Add size={16} />
-        </button>
-      </div>
+        </div>
+      </button>
     </div>
   );
 };

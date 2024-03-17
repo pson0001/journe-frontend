@@ -21,10 +21,12 @@ const Home = () => {
   return (
     <div className={c.pageContainer}>
       {openModal &&
+        unFinishedTasks?.length > 0 &&
         createPortal(
           <div className={c.modalContainer}>
             <div className={c.modalCard}>
               <h2>Unfinished Tasks</h2>
+
               {unFinishedTasks?.map((task) => {
                 return (
                   <TaskItem
