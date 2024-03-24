@@ -12,11 +12,11 @@ import { stringToBoolean } from "./utils";
 
 const TaskItem = ({ task, potId, handleFinishInput }) => {
   const [currentTask, setCurrentTask] = useState({
-    task_description: task.task_description,
-    task_start_time: task.task_start_time,
-    task_duration: task.task_duration,
-    task_id: task.task_id,
-    task_title: task.task_title,
+    task_description: task?.task_description,
+    task_start_time: task?.task_start_time,
+    task_duration: task?.task_duration,
+    task_id: task?.task_id,
+    task_title: task?.task_title,
     task_is_complete: task?.task_is_complete,
     task_pot_id: potId,
   });
@@ -114,7 +114,7 @@ const TaskItem = ({ task, potId, handleFinishInput }) => {
   };
   //Delete task
   const handleDeleteTask = () => {
-    deleteObject("task", task.task_id);
+    deleteObject("task", task?.task_id);
   };
 
   return (
@@ -137,7 +137,7 @@ const TaskItem = ({ task, potId, handleFinishInput }) => {
           />
           <span className={c.nonEditable}>for</span>
           <EditableInput
-            input={task.task_duration}
+            input={task?.task_duration}
             onInputUpdate={handleDurationUpdate}
             type="number"
           />

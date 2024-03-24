@@ -9,7 +9,6 @@ import Icon from "../../../assets/Icon";
 
 const TasksContainer = () => {
   const { tasks, pots, createObject } = useContext(Data);
-
   // Handle selected pot
   const [selectedPot, setSelectedPot] = useState(0);
 
@@ -38,7 +37,7 @@ const TasksContainer = () => {
                 key={index}
                 onClick={() => setSelectedPot(index)}
               >
-                {pot.pot_title}
+                {pot?.pot_title}
               </li>
             ))}
           </ul>
@@ -51,7 +50,7 @@ const TasksContainer = () => {
             <TaskCard
               pot={pots[selectedPot]}
               tasks={tasks}
-              key={pots[selectedPot].pot_id}
+              key={pots[selectedPot]?.pot_id}
             />
           )}
         </div>
