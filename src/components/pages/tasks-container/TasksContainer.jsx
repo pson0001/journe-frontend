@@ -64,11 +64,11 @@ const TasksContainer = () => {
               >
                 <span>{pot?.pot_title}</span>
                 <span className={c.number}>
-                  {taskCountByPot[pot.pot_id]
+                  {taskCountByPot[pot?.pot_id]
                     ? taskCountByPot[pot.pot_id].completed
                     : 0}
                   /
-                  {taskCountByPot[pot.pot_id]
+                  {taskCountByPot[pot?.pot_id]
                     ? taskCountByPot[pot.pot_id].total
                     : 0}
                 </span>
