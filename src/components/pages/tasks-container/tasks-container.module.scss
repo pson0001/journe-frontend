@@ -26,15 +26,22 @@
       margin: 0;
       padding: 0rem;
       .pot {
+        width: 100%;
         margin: 0;
         list-style: none;
         padding: 0.6rem 1rem;
         font-weight: 800;
         border-radius: 8px;
         cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
         &.selected {
           background-color: $card-cta-bg-color;
           color: $card-cta-text-color;
+        }
+        .number{
+          font-weight: 400;
         }
       }
     }

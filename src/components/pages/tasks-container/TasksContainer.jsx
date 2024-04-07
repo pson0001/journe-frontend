@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import c from "./tasks-container.module.scss";
 import { v4 as uuidv4 } from "uuid";
 import { Data } from "../../providers/DataProvider";
@@ -17,12 +17,37 @@ const TasksContainer = () => {
     pot_id: "",
     pot_title: "Untitled",
   });
+
   const addPotHandler = () => {
     createObject("pot", {
       ...newPot,
       pot_id: uuidv4(),
     });
   };
+
+  // Create an object to store task counts for each pot
+
+  const [taskCountByPot, setTaskCountByPot] = useState();
+  useEffect(() => {
+    const countTasksByPot = () => {
+      const counts = {};
+      tasks?.forEach((task) => {
+        if (!counts[task.task_pot_id]) {
+          counts[task.task_pot_id] = {
+            total: 0,
+            completed: 0,
+          };
+        }
+        counts[task.task_pot_id].total++;
+        if (task.task_is_complete === "True") {
+          counts[task.task_pot_id].completed++;
+        }
+      });
+      return counts;
+    };
+
+    setTaskCountByPot(countTasksByPot());
+  }, [tasks]);
 
   return (
     <div className={c.pageContainer}>
@@ -37,7 +62,16 @@ const TasksContainer = () => {
                 key={index}
                 onClick={() => setSelectedPot(index)}
               >
-                {pot?.pot_title}
+                <span>{pot?.pot_title}</span>
+                <span className={c.number}>
+                  {taskCountByPot[pot.pot_id]
+                    ? taskCountByPot[pot.pot_id].completed
+                    : 0}
+                  /
+                  {taskCountByPot[pot.pot_id]
+                    ? taskCountByPot[pot.pot_id].total
+                    : 0}
+                </span>
               </li>
             ))}
           </ul>

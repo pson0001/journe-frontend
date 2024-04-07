@@ -4,7 +4,7 @@ import c from "./home.module.scss";
 import Garden from "./garden/Garden";
 import taskFilter from "../../utils/filter/task-filter";
 import { createPortal } from "react-dom";
-import TaskItem from "../tasks/task-item/TaskItem";
+import TaskItem from "../tasks-container/task-item/TaskItem";
 const Home = () => {
   // Load data
   const { tasks, pots } = useContext(Data);

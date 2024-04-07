@@ -21,6 +21,8 @@ const TaskItem = ({ task, potId, handleFinishInput }) => {
     task_pot_id: potId,
   });
 
+  const [isHovered, setIsHovered] = useState(false);
+
   //Update task
   const { setTasks, createObject, updateObject, deleteObject } =
     useContext(Data);
@@ -124,7 +126,11 @@ const TaskItem = ({ task, potId, handleFinishInput }) => {
         currentTask?.task_is_complete === "True" && c.completed,
       ].join(" ")}
     >
-      <div className={c.taskContainer}>
+      <div
+        className={c.taskContainer}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <Checkbox
           onChange={checkboxHandler}
           checked={currentTask?.task_is_complete === "True"}
@@ -154,9 +160,11 @@ const TaskItem = ({ task, potId, handleFinishInput }) => {
             />
           </span>
         </div>
-        <button className={c.deleteButton} onClick={handleDeleteTask}>
-          <Icon.Trash />
-        </button>
+        {isHovered ? (
+          <button className={c.deleteButton} onClick={handleDeleteTask}>
+            <Icon.Trash />
+          </button>
+        ) : null}
       </div>
     </div>
   );

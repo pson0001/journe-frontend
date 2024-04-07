@@ -38,7 +38,9 @@
     max-height: 80vh;
     width: clamp(300px, 50vw, 800px);
     overflow: auto;
-
+    h2 {
+      margin: 0;
+    }
     form {
       width: 50vw;
       display: flex;

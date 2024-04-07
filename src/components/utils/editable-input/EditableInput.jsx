@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import c from "./editable-input.module.scss";
 const EditableInput = ({ input, onInputUpdate, type }) => {
+  console.log(type === ("text" || "number") ? "text" : "title");
   // State to manage the current title
   const [currentInput, setCurrentInput] = useState(input);
 
@@ -45,7 +46,7 @@ const EditableInput = ({ input, onInputUpdate, type }) => {
   };
 
   return (
-    <div data-type={type === "text" || "number" ? "text" : "title"}>
+    <div data-type={type === "text" || type === "number" ? "text" : "title"}>
       {/* If not in edit mode, display the title */}
       {!isEditing ? (
         <span tabIndex="0" onClick={handleClick} onFocus={handleClick}>
