@@ -1,0 +1,28 @@
+.dropdown {
+  .dropdownButton {
+    background-color: transparent;
+    border: none;
+    list-style: none;
+    font-weight: 800;
+    font-size: 1.6rem;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    .arrow {
+      transition: transform 0.3s ease;
+    }
+    .rotate {
+      transform: rotate(180deg);
+      transform-origin: 50% 50%;
+    }
+  }
+  .dropdownMenu {
+    list-style: none;
+    margin: 1rem 0rem;
+    padding: 0;
+    cursor: pointer;
+  }
+}

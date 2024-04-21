@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 import { Data } from "../../providers/DataProvider";
 import TaskCard from "./task-card/TaskCard";
 import Icon from "../../../assets/Icon";
+import useWindowResize from "../../utils/hooks/useWindowSize";
+import Dropdown from "../../utils/dropdown/Dropdown";
 
 // import classNames from "classnames";
 
@@ -49,36 +51,48 @@ const TasksContainer = () => {
     setTaskCountByPot(countTasksByPot());
   }, [tasks]);
 
+  const windowSize = useWindowResize();
+
   return (
     <div className={c.pageContainer}>
       <div className={c.tasksContainer}>
-        <div className={c.potsContainer}>
-          <ul className={c.pots}>
-            {pots?.map((pot, index) => (
-              <li
-                className={[c.pot, selectedPot === index && c.selected].join(
-                  " "
-                )}
-                key={index}
-                onClick={() => setSelectedPot(index)}
-              >
-                <span>{pot?.pot_title}</span>
-                <span className={c.number}>
-                  {taskCountByPot && taskCountByPot[pot?.pot_id]
-                    ? taskCountByPot[pot.pot_id].completed
-                    : 0}
-                  /
-                  {taskCountByPot && taskCountByPot[pot?.pot_id]
-                    ? taskCountByPot[pot.pot_id].total
-                    : 0}
-                </span>
-              </li>
-            ))}
-          </ul>
-          <button onClick={addPotHandler} className={c.addNew}>
-            <Icon.Add size={16} />
-          </button>
-        </div>
+        {windowSize >= 800 ? (
+          <div className={c.potsContainer}>
+            <ul className={c.pots}>
+              {pots?.map((pot, index) => (
+                <li
+                  className={[c.pot, selectedPot === index && c.selected].join(
+                    " "
+                  )}
+                  key={index}
+                  onClick={() => setSelectedPot(index)}
+                >
+                  <span>{pot?.pot_title}</span>
+                  <span className={c.number}>
+                    {taskCountByPot && taskCountByPot[pot?.pot_id]
+                      ? taskCountByPot[pot.pot_id].completed
+                      : 0}
+                    /
+                    {taskCountByPot && taskCountByPot[pot?.pot_id]
+                      ? taskCountByPot[pot.pot_id].total
+                      : 0}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <button onClick={addPotHandler} className={c.addNew}>
+              <Icon.Add size={16} />
+            </button>
+          </div>
+        ) : (
+          <div className={c.mobilePotsContainer}>
+            <Dropdown
+              options={pots}
+              selectedIndex={selectedPot}
+              setSelectedIndex={setSelectedPot}
+            ></Dropdown>
+          </div>
+        )}
         <div className={c.todos}>
           {pots && (
             <TaskCard
