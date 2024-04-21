@@ -56,7 +56,7 @@ const TasksContainer = () => {
   return (
     <div className={c.pageContainer}>
       <div className={c.tasksContainer}>
-        {windowSize >= 800 ? (
+        {windowSize > 800 ? (
           <div className={c.potsContainer}>
             <ul className={c.pots}>
               {pots?.map((pot, index) => (
